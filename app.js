@@ -59,6 +59,12 @@ app.get('/todos/completed', (req, res) => {
   res.json(completed); // Custom Read!
 });
 
+// GET Active – Read incomplete todos
+app.get('/todos/active', (req, res) => {
+  const active = todos.filter((t) => !t.completed);
+  res.status(200).json(active);
+});
+
 app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Server error!' });
 });
