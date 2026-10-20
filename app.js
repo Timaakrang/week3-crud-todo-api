@@ -11,6 +11,18 @@ let todos = [
 app.get('/todos', (req, res) => {
   res.status(200).json(todos); // Send array as JSON
 });
+
+app.get('/todos/completed', (req, res) => {
+  const completed = todos.filter((t) => t.completed);
+  res.json(completed); // Custom Read!
+});
+
+// GET Active – Read incomplete todos
+app.get('/todos/active', (req, res) => {
+  const active = todos.filter((t) => !t.completed);
+  res.status(200).json(active);
+});
+
 // GET Single – Read one todo
 app.get('/todos/:id', (req, res) => {
   const id = Number(req.params.id);
@@ -24,17 +36,6 @@ app.get('/todos/:id', (req, res) => {
 
   res.status(200).json(todo);
 });
-app.get('/todos/completed', (req, res) => {
-  const completed = todos.filter((t) => t.completed);
-  res.json(completed); // Custom Read!
-});
-
-// GET Active – Read incomplete todos
-app.get('/todos/active', (req, res) => {
-  const active = todos.filter((t) => !t.completed);
-  res.status(200).json(active);
-});
-
 
 // POST New – Create
 app.post('/todos', (req, res) => { 
